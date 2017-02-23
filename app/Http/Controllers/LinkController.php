@@ -33,7 +33,7 @@ class LinkController extends Controller {
 			}
 			// Validate 
 			if($request->has('g-recaptcha-response')) {
-				$gkey = $request->query('g-recaptcha-response');
+				$gkey = $request->input('g-recaptcha-response');
 				$ckey = env('SETTING_RECAPTCHA_SECRETKEY');
 				$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$ckey.'&response='.$gkey.'&remoteip='.$request->ip());
 				$responseData = json_decode($verifyResponse);

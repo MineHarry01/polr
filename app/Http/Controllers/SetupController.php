@@ -109,6 +109,10 @@ class SetupController extends Controller {
 
         // if true, only logged in users can shorten
         $st_shorten_permission = $request->input('setting:shorten_permission');
+		// if set, recaptcha will be required to shorten links
+		$st_recaptcha_enable = $request->input('setting:recaptcha_enable');
+		$st_recaptcha_sitekey = $request->input('setting:recaptcha_sitekey');
+		$st_recaptcha_secretkey = $request->input('setting:recaptcha_secretkey');
         $st_index_redirect = $request->input('setting:index_redirect');
         $st_redirect_404 = $request->input('setting:redirect_404');
         $st_password_recov = $request->input('setting:password_recovery');
@@ -152,6 +156,9 @@ class SetupController extends Controller {
             'POLR_ALLOW_ACCT_CREATION' => $polr_allow_acct_creation,
             'POLR_ACCT_ACTIVATION' => $polr_acct_activation,
             'ST_SHORTEN_PERMISSION' => $st_shorten_permission,
+			'ST_RECAPTCHA_ENABLE' => $st_recaptcha_enable,
+			'ST_RECAPTCHA_SITEKEY' => $st_recaptcha_sitekey,
+			'ST_RECAPTCHA_SECRETKEY' => $st_recaptcha_secretkey,
             'ST_INDEX_REDIRECT' => $st_index_redirect,
             'ST_REDIRECT_404' => $st_redirect_404,
             'ST_PASSWORD_RECOV' => $st_password_recov,

@@ -24,7 +24,29 @@ class LinkController extends Controller {
         if (env('SETTING_SHORTEN_PERMISSION') && !self::isLoggedIn()) {
             return redirect(route('index'))->with('error', 'You must be logged in to shorten links.');
         }
-
+		
+		if(env('SETTING_RECAPTCHA_ENABLE')) {
+			if(!env('SETTING_RECAPTCHA_SECUREKEY')) {
+				return view('error', [
+						'message' => 'Sorry, but there is an error in the Settings. Please contact the Admin. Technical Details: SETTING_RECAPTCHA_SECUREKEY not found'
+				]);
+			}
+			// Validate 
+			if($request->has('g-recaptcha-response')) {
+				$gkey = $request->query('g-recaptcha-response');
+				$ckey = env('SETTING_RECAPTCHA_SECUREKEY');
+				$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$ckey.'&response='.$gkey.'&remoteip='.$request->ip());
+				$responseData = json_decode($verifyResponse);
+				if(!$responseData->success) {
+					return view('error', [
+						'message' => 'Sorry, but there was an error verifying your Captcha.'
+					]);
+				}
+			} else {
+				return redirect(route('index'))->with('error', 'You must solve the Captcha to shorten links.');
+			}
+		}
+		
         // Validate URL form data
         $this->validate($request, [
             'link-url' => 'required|url',

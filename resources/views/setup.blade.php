@@ -70,6 +70,18 @@ Setup
                 <option value='false' selected='selected'>Anyone can shorten URLs</option>
                 <option value='true'>Only logged in users may shorten URLs</option>
             </select>
+			
+			<p>reCaptcha enable:</p>
+            <select name='setting:recaptcha_enable' class='form-control'>
+                <option value='false' selected='selected'>No reCaptcha needed to Shorten URLs</option>
+                <option value='true'>reCaptcha is needed to Shorten URLs</option>
+            </select>
+			
+			<p>reCaptcha Secret Key:</p>
+            <input type='text' class='form-control' name='setting:recaptcha_securekey' value='your-secret-key'>
+			
+			<p>reCaptcha Site Key:</p>
+            <input type='text' class='form-control' name='setting:recaptcha_sitekey' value='your-site-key'>
 
             <p>Public Interface:</p>
             <select name='setting:public_interface' class='form-control'>

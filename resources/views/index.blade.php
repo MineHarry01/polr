@@ -4,10 +4,20 @@
 <link rel='stylesheet' href='css/index.css' />
 @endsection
 
+@if(env('SETTING_RECAPTCHA_ENABLE'))
+	@section('meta')
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+		function shortenFormSubmit = function(token) {
+			document.getElementById("shorten-form").submit();
+		}
+    </script>
+	@endsection
+@endif
 @section('content')
 <h1 class='title'>{{env('APP_NAME')}}</h1>
 
-<form method='POST' action='/shorten' role='form'>
+<form id="shorten-form" method='POST' action='/shorten' role='form'>
     <input type='url' autocomplete='off'
         class='form-control long-link-input' placeholder='http://' name='link-url' />
 
@@ -40,6 +50,9 @@
     <input type='submit' class='btn btn-info' id='shorten' value='Shorten' />
     <a href='#' class='btn btn-warning' id='show-link-options'>Link Options</a>
     <input type="hidden" name='_token' value='{{csrf_token()}}' />
+	@if(env('SETTING_RECAPTCHA_ENABLE'))
+	<button class="g-recaptcha" data-sitekey="{{env('SETTING_RECAPTCHA_SITEKEY')}}" data-callback="shortenFormSubmit">Submit</button>
+	@endif
 </form>
 
 <div id='tips' class='text-muted tips'>

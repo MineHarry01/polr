@@ -26,15 +26,15 @@ class LinkController extends Controller {
         }
 		
 		if(env('SETTING_RECAPTCHA_ENABLE')) {
-			if(!env('SETTING_RECAPTCHA_SECUREKEY')) {
+			if(!env('SETTING_RECAPTCHA_SECRETKEY')) {
 				return view('error', [
-						'message' => 'Sorry, but there is an error in the Settings. Please contact the Admin. Technical Details: SETTING_RECAPTCHA_SECUREKEY not found'
+						'message' => 'Sorry, but there is an error in the Settings. Please contact the Admin. Technical Details: SETTING_RECAPTCHA_SECRETKEY not found'
 				]);
 			}
 			// Validate 
 			if($request->has('g-recaptcha-response')) {
 				$gkey = $request->query('g-recaptcha-response');
-				$ckey = env('SETTING_RECAPTCHA_SECUREKEY');
+				$ckey = env('SETTING_RECAPTCHA_SECRETKEY');
 				$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$ckey.'&response='.$gkey.'&remoteip='.$request->ip());
 				$responseData = json_decode($verifyResponse);
 				if(!$responseData->success) {

@@ -78,7 +78,7 @@ Setup
             </select>
 			
 			<p>reCaptcha Secret Key:</p>
-            <input type='text' class='form-control' name='setting:recaptcha_securekey' value='your-secret-key'>
+            <input type='text' class='form-control' name='setting:recaptcha_secretkey' value='your-secret-key'>
 			
 			<p>reCaptcha Site Key:</p>
             <input type='text' class='form-control' name='setting:recaptcha_sitekey' value='your-site-key'>

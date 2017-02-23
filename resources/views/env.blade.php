@@ -54,6 +54,16 @@ POLR_ACCT_ACTIVATION={{$POLR_ACCT_ACTIVATION}}
 # Set to true to require users to be logged in before shortening URLs
 SETTING_SHORTEN_PERMISSION={{$ST_SHORTEN_PERMISSION}}
 
+# Set to true to require users to solve reCaptcha before shortening URLs
+# You'll need reCaptcha Keys, you can get them from https://www.google.com/recaptcha/admin
+SETTING_RECAPTCHA_ENABLE={{$ST_RECAPTCHA_ENABLE}}
+
+# If SETTING_RECAPTCHA_ENABLE you must set to a valid Secret Key
+SETTING_RECAPTCHA_SECRETKEY={{$ST_RECAPTCHA_SCECRETKEY}}
+
+# If SETTING_RECAPTCHA_ENABLE you must set to a valid Site Key
+SETTING_RECAPTCHA_SITEKEY={{$ST_RECAPTCHA_SITEKEY}}
+
 # You must set SETTING_INDEX_REDIRECT if SETTING_PUBLIC_INTERFACE is false
 # Polr will redirect logged off users to this URL
 SETTING_INDEX_REDIRECT={{$ST_INDEX_REDIRECT}}

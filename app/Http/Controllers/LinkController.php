@@ -39,7 +39,7 @@ class LinkController extends Controller {
 				$responseData = json_decode($verifyResponse);
 				if(!$responseData->success) {
 					return view('error', [
-						'message' => 'Sorry, but there was an error verifying your Captcha.'
+						'message' => 'Sorry, but there was an error verifying your Captcha. Technical Infos: RAW OUTPUT:'.print_r($responseData,1)
 					]);
 				}
 			} else {

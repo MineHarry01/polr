@@ -6,12 +6,7 @@
 
 @if(env('SETTING_RECAPTCHA_ENABLE'))
 	@section('meta')
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script>
-		function shortenFormSubmit = function(token) {
-			document.getElementById("shorten-form").submit();
-		}
-    </script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 	@endsection
 @endif
 @section('content')
@@ -51,7 +46,7 @@
     <a href='#' class='btn btn-warning' id='show-link-options'>Link Options</a>
     <input type="hidden" name='_token' value='{{csrf_token()}}' />
 	@if(env('SETTING_RECAPTCHA_ENABLE'))
-	<button class="g-recaptcha" data-sitekey="{{env('SETTING_RECAPTCHA_SITEKEY')}}" data-callback="shortenFormSubmit">Submit</button>
+	<div class="g-recaptcha" data-sitekey="{{env('SETTING_RECAPTCHA_SITEKEY')}}"></div>
 	@endif
 </form>
 

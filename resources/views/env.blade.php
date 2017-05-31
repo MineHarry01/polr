@@ -51,6 +51,11 @@ POLR_ALLOW_ACCT_CREATION={{$POLR_ALLOW_ACCT_CREATION}}
 # Set to true to require activation by email (e.g true/false)
 POLR_ACCT_ACTIVATION={{$POLR_ACCT_ACTIVATION}}
 
+# Set to true to require reCAPTCHAs on sign up pages
+# If this setting is enabled, you must also provide your reCAPTCHA keys
+# in POLR_RECAPTCHA_SITE_KEY and POLR_RECAPTCHA_SECRET_KEY
+POLR_ACCT_CREATION_RECAPTCHA={{$POLR_ACCT_CREATION_RECAPTCHA}}
+
 # Set to true to require users to be logged in before shortening URLs
 SETTING_SHORTEN_PERMISSION={{$ST_SHORTEN_PERMISSION}}
 
@@ -81,11 +86,26 @@ SETTING_AUTO_API={{$ST_AUTO_API}}
 # Set to true to allow anonymous API access
 SETTING_ANON_API={{$ST_ANON_API}}
 
+# Set the anonymous API quota per IP
+SETTING_ANON_API_QUOTA={{$ST_ANON_API_QUOTA}}
+
 # Set to true to use pseudorandom strings rather than using a counter by default
 SETTING_PSEUDORANDOM_ENDING={{$ST_PSEUDOR_ENDING}}
 
 # Set to true to record advanced analytics
 SETTING_ADV_ANALYTICS={{$ST_ADV_ANALYTICS}}
+
+# Set to true to restrict registration to a specific email domain
+SETTING_RESTRICT_EMAIL_DOMAIN={{$ST_RESTRICT_EMAIL_DOMAIN}}
+
+# A comma-separated list of permitted email domains
+SETTING_ALLOWED_EMAIL_DOMAINS={{$ST_ALLOWED_EMAIL_DOMAINS}}
+
+# reCAPTCHA site key
+POLR_RECAPTCHA_SITE_KEY={{$POLR_RECAPTCHA_SITE_KEY}}
+
+# reCAPTCHA secret key
+POLR_RECAPTCHA_SECRET_KEY={{$POLR_RECAPTCHA_SECRET}}
 
 # Set each to blank to disable mail
 @if($MAIL_ENABLED)
@@ -109,6 +129,7 @@ SESSION_DRIVER=file
 QUEUE_DRIVER=database
 
 _API_KEY_LENGTH=15
+_ANALYTICS_MAX_DAYS_DIFF=365
 _PSEUDO_RANDOM_KEY_LENGTH=5
 
 # FILESYSTEM_DRIVER=local

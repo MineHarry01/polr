@@ -1,4 +1,4 @@
-.stats-header {
+.stats-header h3 {
     text-align: center;
 }
 
@@ -17,4 +17,9 @@
 
 h4 {
     display: inline-block;
+}
+
+.link-meta {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }

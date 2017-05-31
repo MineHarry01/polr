@@ -57,6 +57,18 @@ class UserController extends Controller {
             return redirect(route('index'))->with('error', 'Sorry, but registration is disabled.');
         }
 
+        if (env('POLR_ACCT_CREATION_RECAPTCHA')) {
+            // Verify reCAPTCHA if setting is enabled
+            $gRecaptchaResponse = $request->input('g-recaptcha-response');
+
+            $recaptcha = new \ReCaptcha\ReCaptcha(env('POLR_RECAPTCHA_SECRET_KEY'));
+            $recaptcha_resp = $recaptcha->verify($gRecaptchaResponse, $request->ip());
+
+            if (!$recaptcha_resp->isSuccess()) {
+                return redirect(route('signup'))->with('error', 'You must complete the reCAPTCHA to register.');
+            }
+        }
+
         // Validate signup form data
         $this->validate($request, [
             'username' => 'required|alpha_dash',
@@ -68,6 +80,15 @@ class UserController extends Controller {
         $password = $request->input('password');
         $email = $request->input('email');
 
+        if (env('SETTING_RESTRICT_EMAIL_DOMAIN')) {
+            $email_domain = explode('@', $email)[1];
+            $permitted_email_domains = explode(',', env('SETTING_ALLOWED_EMAIL_DOMAINS'));
+
+            if (!in_array($email_domain, $permitted_email_domains)) {
+                return redirect(route('signup'))->with('error', 'Sorry, your email\'s domain is not permitted to create new accounts.');
+            }
+        }
+
         $ip = $request->ip();
 
         $user_exists = UserHelper::userExists($username);
@@ -76,12 +97,6 @@ class UserController extends Controller {
         if ($user_exists || $email_exists) {
             // if user or email email
             return redirect(route('signup'))->with('error', 'Sorry, your email or username already exists. Try again.');
-        }
-
-        $email_valid = UserHelper::validateEmail($email);
-
-        if ($email_valid == false) {
-            return redirect(route('signup'))->with('error', 'Please use a valid email to sign up.');
         }
 
         $acct_activation_needed = env('POLR_ACCT_ACTIVATION');
